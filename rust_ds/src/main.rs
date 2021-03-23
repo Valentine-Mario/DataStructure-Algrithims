@@ -1,5 +1,7 @@
+mod queue;
 mod stack;
 use crate::stack::Stack;
+use crate::queue::Queue;
 
 fn main() {
     let mut a = Stack::<String>::new(20);
@@ -7,6 +9,13 @@ fn main() {
     a.push(String::from("hi"));
     a.push(String::from("hello"));
     println!("stack empty {}", a.check_empty());
-    let poped_item= a.pop();
+    let poped_item = a.pop();
     println!("popped item {:?}", poped_item.unwrap());
+
+    let mut b=Queue::<i32>::new(10);
+
+    b.enqueue(100);
+    println!("the item in queue is {:?}", b.item);
+    b.dequeue();
+    println!("the item in queue is {:?}", b.item)
 }
