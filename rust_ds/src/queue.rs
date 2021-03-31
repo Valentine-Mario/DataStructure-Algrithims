@@ -64,10 +64,10 @@ where
         //check if queue is empty
         if self.count==self.maxsize as i32 {
             println!("The circular queue is full");
-        }else if self.head == -1 {
+        }else if self.count==0 {
             self.head = 0;
             self.tail = 0;
-            self.item.insert(0, value);
+            self.item.insert(self.tail as usize, value);
             self.tail = (self.tail + 1) % self.maxsize as i32;
             self.count += 1;
         } else {
