@@ -1,6 +1,6 @@
 mod queue;
 mod stack;
-use crate::queue::Queue;
+use crate::queue::*;
 use crate::stack::Stack;
 
 fn main() {
@@ -17,5 +17,17 @@ fn main() {
     b.enqueue(100);
     println!("the item in queue is {:?}", b.item);
     b.dequeue();
-    println!("the item in queue is {:?}", b.item)
+    println!("the item in queue is {:?}", b.item);
+
+    let mut c = CircularQueue::<i32>::new(10);
+    c.enqueue(89);
+    c.enqueue(100);
+    c.enqueue(101);
+    c.enqueue(141);
+
+
+    println!("circular queue {:?}", c.dequeue());
+    println!("circular queue {:?}", c.dequeue());
+    
+    c.print_circular_queue();
 }

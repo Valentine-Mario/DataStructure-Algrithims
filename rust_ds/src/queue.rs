@@ -1,5 +1,3 @@
-use std::fmt;
-
 #[derive(Debug)]
 pub struct Queue<T> {
     pub size: usize,
@@ -40,16 +38,17 @@ impl<T> Queue<T> {
 }
 
 #[derive(Debug)]
-pub struct MyCircularQueue<T> {
+pub struct CircularQueue<T> {
     pub maxsize: usize,
     pub item: Vec<T>,
     pub head: i32,
     pub tail: i32,
+    pub count: i32,
 }
 
-impl<T> MyCircularQueue<T>
+impl<T> CircularQueue<T>
 where
-    T: fmt::Display,
+    T: std::fmt::Display,
 {
     pub fn new(maxsize: usize) -> Self {
         Self {
@@ -57,40 +56,40 @@ where
             item: Vec::with_capacity(maxsize),
             head: -1,
             tail: -1,
+            count: 0,
         }
     }
 
     pub fn enqueue(&mut self, value: T) {
         //check if queue is empty
-        if (self.tail + 1 % self.maxsize as i32) == self.head {
+        if self.count==self.maxsize as i32 {
             println!("The circular queue is full");
-        } else if self.head == -1 {
+        }else if self.head == -1 {
             self.head = 0;
             self.tail = 0;
-            self.item[self.tail as usize] = value
-        } else {
+            self.item.insert(0, value);
             self.tail = (self.tail + 1) % self.maxsize as i32;
-            self.item[self.tail as usize] = value
+            self.count += 1;
+        } else {
+            self.item.insert(self.tail as usize, value);
+            self.tail = (self.tail + 1) % self.maxsize as i32;
+            self.count += 1;
         }
     }
 
-    pub fn dequeue(&mut self) -> Option<&T> {
-        if self.head == -1 {
+    pub fn dequeue(&mut self) -> Option<T> {
+        if self.count == 0 {
             println!("queue is empty");
             None
-        } else if self.head == self.tail {
-            let temp = &self.item[self.head as usize];
-            self.head = -1;
-            self.tail = -1;
-            return Some(temp);
         } else {
-            let temp = &self.item[self.head as usize];
+            let temp = self.item.remove(self.head as usize);
             self.head = (self.head + 1) % self.maxsize as i32;
-            return Some(temp);
+            self.count -= 1;
+            Some(temp)
         }
     }
-    pub fn printCircularQueue(&self) {
-        if self.head == -1 {
+    pub fn print_circular_queue(&self) {
+        if self.count == 0 {
             println!("circular queue is empty")
         } else {
             for elem in self.item.iter() {
