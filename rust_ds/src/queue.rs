@@ -62,9 +62,9 @@ where
 
     pub fn enqueue(&mut self, value: T) {
         //check if queue is empty
-        if self.count==self.maxsize as i32 {
+        if self.count == self.maxsize as i32 {
             println!("The circular queue is full");
-        }else if self.count==0 {
+        } else if self.count == 0 {
             self.head = 0;
             self.tail = 0;
             self.item.insert(self.tail as usize, value);

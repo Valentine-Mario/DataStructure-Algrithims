@@ -1,6 +1,9 @@
 mod queue;
+mod search;
+mod sort;
 mod stack;
 use crate::queue::*;
+use crate::sort::*;
 use crate::stack::Stack;
 
 fn main() {
@@ -25,9 +28,18 @@ fn main() {
     c.enqueue(101);
     c.enqueue(141);
 
+    println!("circular queue {:?}", c.dequeue());
+    println!("circular queue {:?}", c.dequeue());
 
-    println!("circular queue {:?}", c.dequeue());
-    println!("circular queue {:?}", c.dequeue());
-    
     c.print_circular_queue();
+
+    println!(
+        "the sorted algo is {:?}",
+        bubble_sort(&mut vec![3, 1, 6, 1, 9, 3])
+    );
+    let mut list = vec![12, 1, 34, 1, 90, 100, 19, 865, 34, 67];
+    list.sort();
+
+    let exist = search::binary_search(&list, 304, 0, list.len() as u32);
+    println!("{:?}", exist);
 }
