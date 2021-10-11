@@ -1,7 +1,9 @@
+mod bintree;
 mod queue;
 mod search;
 mod sort;
 mod stack;
+use crate::bintree::*;
 use crate::queue::*;
 use crate::sort::*;
 use crate::stack::Stack;
@@ -42,4 +44,9 @@ fn main() {
 
     let exist = search::binary_search(&list, 304, 0, list.len() as u32);
     println!("{:?}", exist);
+
+    //(10-(2*2))+(8+(10/2))
+    let bt=BinaryTree::new(add_node(sub_node(id_node(10), mul_node(id_node(2), id_node(2))),
+     add_node(id_node(8), div_node(id_node(10), id_node(2)))));
+     println!("{}", BinaryTree::collapse(&Box::new(bt.head.expect("No head init"))))
 }
