@@ -59,3 +59,4 @@ def is_matched(expr):
     return s.is_empty()
 
 print(is_matched("(){}["))
+print(is_matched("(hello)"))
